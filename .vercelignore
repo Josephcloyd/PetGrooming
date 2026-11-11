@@ -1,0 +1,5 @@
+# Keep local secrets and test artifacts out of CLI uploads (the CLI does not read .gitignore).
+.env*
+coverage
+test-results
+playwright-report
