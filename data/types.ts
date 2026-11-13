@@ -10,8 +10,10 @@ export type Service = {
   /** Price for a small pet. Medium and large are derived via SIZE_MULTIPLIER. */
   startingPrice: number;
   durationMinutes: number;
+  /** Shown in the expanded service detail panel. */
+  includes: string[];
   icon: LucideIcon;
-  accent: "coral" | "sunny" | "mint" | "sky";
+  accent: "coral" | "sunny" | "lagoon";
   /** Shown as the large tile in the services bento grid. */
   featured?: boolean;
   /** Photo shown inside the featured tile on large screens. */
@@ -38,6 +40,10 @@ export type GalleryPhoto = {
   id: string;
   src: string;
   alt: string;
+  /** Used by the Dogs / Cats filter chips. */
+  pet: PetType;
+  /** Short tag shown on the photo, e.g. the service performed. */
+  caption: string;
   width: number;
   height: number;
 };

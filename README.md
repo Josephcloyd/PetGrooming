@@ -49,10 +49,13 @@ All brand tokens are defined once in the `@theme` block of [`app/globals.css`](a
 | Token | Default | Used for |
 |---|---|---|
 | `--color-cream` | `#FFF8F0` | Page background |
-| `--color-coral` | `#F4846A` | Primary buttons, highlights |
+| `--color-coral` | `#F4846A` | Button and badge fills, always with navy text |
+| `--color-coral-dark` | `#B8492A` | Coral text, links and the focus ring |
 | `--color-navy` | `#1F2A44` | Headings, body text, dark sections |
-| `--color-sunny` | `#FFD166` | Badges and playful accents |
-| `--color-mint`, `--color-sky` | pastels | Icon tiles, decorations |
+| `--color-sunny` | `#FFD166` | Accents, button hover, squiggles |
+| `--color-lagoon` | `#6CC4D4` | The one water blue: bubbles, waves, tints |
+
+**Contrast rule:** never put white text on `coral`, because it measures only 2.5:1. Use navy text on coral (5.7:1), or `coral-dark` for coral-coloured text on light backgrounds (5.2:1 on white, 4.9:1 on cream). Both pass WCAG AA.
 
 Fonts are loaded in `app/layout.tsx` with `next/font/google` (Fredoka for headings, DM Sans for body). Swap the imports there and update `--font-display` / `--font-sans` in `globals.css`.
 
@@ -63,24 +66,25 @@ Fonts are loaded in `app/layout.tsx` with `next/font/google` (Fredoka for headin
 Placeholder photos are Unsplash URLs. To use your own, drop files into `public/` and change the `src` values in `data/`. If you keep remote images, make sure the host is listed in `images.remotePatterns` in `next.config.ts`.
 
 ### Animations
-Shared variants and transitions are in [`lib/animations.ts`](lib/animations.ts); CSS keyframes (foam, shimmer) live in the `@theme` block of `app/globals.css`. Every animated component checks `useReducedMotion()` and the root layout wraps the app in `MotionConfig reducedMotion="user"`, so users with "reduce motion" enabled get instant or static versions.
+Shared variants and transitions are in [`lib/animations.ts`](lib/animations.ts); CSS keyframes (foam, paw stamp) live in the `@theme` block of `app/globals.css`. Every animated component checks `useReducedMotion()` and the root layout wraps the app in `MotionConfig reducedMotion="user"`, so users with "reduce motion" enabled get instant or static versions.
 
-Signature "bath time" animations and where they live:
+Motion is deliberately kept to a few signature effects, plus small touches that respond to what the visitor does. Avoid adding always-on ambient animation; the page already has enough.
 
 | Effect | Component |
 |---|---|
-| Suds cover the hero photo, then pop to reveal it | `components/decor/FoamReveal.tsx` |
-| Soap bubbles trail the mouse across the hero | `components/decor/BubbleCursor.tsx` |
-| Hero photo frame slowly morphs between blob shapes | `components/sections/Hero.tsx` |
-| Headline words drop in with a bouncy "splash" | `wordReveal` in `lib/animations.ts` |
-| Hand-drawn squiggle underlines draw on scroll | `components/ui/Squiggle.tsx` |
-| Rotating circular sticker | `components/decor/SpinningBadge.tsx` |
-| Bubbles rise through service cards on hover | `components/cards/ServiceCard.tsx` |
-| Paw prints stamp along the timeline as you scroll | `components/sections/HowItWorks.tsx` |
-| Odometer-style rolling prices and a pup that grows with size | `components/ui/RollingPrice.tsx`, `components/sections/Pricing.tsx` |
-| Sloshing water-line dividers between sections | `components/decor/WaveDivider.tsx` |
-| 3D tilt with glare on gallery photos | `components/gallery/TiltFrame.tsx` |
-| Polaroid team cards that straighten on hover | `components/cards/TeamCard.tsx` |
+| **Signature:** suds cover the hero photo, then pop to reveal it | `components/decor/FoamReveal.tsx` |
+| **Signature:** paw prints stamp along the timeline as you scroll | `components/sections/HowItWorks.tsx` |
+| **Signature:** odometer-style rolling prices, and a pup that grows with the chosen size | `components/ui/RollingPrice.tsx`, `components/sections/Pricing.tsx` |
+| Hero "Book a Grooming" button morphs into the booking form (React `<ViewTransition>`) | `lib/transitions.ts`, `components/sections/Hero.tsx`, `components/booking/BookingWizard.tsx` |
+| Service cards expand into a detail panel | `components/cards/ServiceCard.tsx`, `components/cards/ServiceDetail.tsx` |
+| Gallery photos slide into place when filtering dogs or cats | `components/gallery/GalleryGrid.tsx` |
+| Booking pet buddy swaps dog and cat and grows with size | `components/booking/PetBuddy.tsx` |
+| Paw stamps onto ticked service checkboxes | `components/booking/fields.tsx` |
+| The booked pet gets a little bath on the success screen | `components/booking/SuccessScreen.tsx` |
+| Headline words drop in with a bouncy "splash", plus a squiggle underline in the hero and pricing headings | `wordReveal` in `lib/animations.ts`, `components/ui/Squiggle.tsx` |
+| Buttons squish softly when pressed | `tapScale` in `lib/animations.ts` |
+| Water-line dividers, only where the background changes colour | `components/decor/WaveDivider.tsx` |
+| Polaroid team cards straighten on hover | `components/cards/TeamCard.tsx` |
 | Map pin drops in with ripples | `components/sections/MapCard.tsx` |
 | Menu floods in as a growing circle | `components/layout/MobileDrawer.tsx` |
 | Footer wordmark letters rise and hop | `components/layout/Wordmark.tsx` |
@@ -113,11 +117,11 @@ app/                 routes, layout, metadata, sitemap, robots
 components/
   layout/            Navbar, mobile drawer, footer, newsletter, wordmark
   sections/          Hero, Services, HowItWorks, Pricing, Gallery, Team, Faq, Contact, MapCard
-  cards/             ServiceCard, PricingCard, TeamCard
-  gallery/           BeforeAfterSlider, MasonryGrid, TiltFrame, Lightbox
+  cards/             ServiceCard, ServiceDetail, PricingCard, TeamCard
+  gallery/           BeforeAfterSlider, GalleryGrid, Lightbox
   booking/           BookingWizard, step components, ProgressBar, PriceSummary, SuccessScreen
   ui/                Button, Container, SectionHeading, Squiggle, AnimatedSection, Badge, RollingPrice
-  decor/             FloatingShapes, FoamReveal, BubbleCursor, WaveDivider, SpinningBadge, SocialIcons
+  decor/             FloatingShapes, FoamReveal, WaveDivider, SpinningBadge, SocialIcons
 data/                typed content arrays
 lib/                 animations, pricing, booking schema/schedule/submit, JSON-LD
 hooks/               useScrolled, useFocusTrap, useLockBodyScroll, useAvailableDates

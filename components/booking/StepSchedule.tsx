@@ -18,7 +18,7 @@ const locationChoices = locationOptions.map((option) => ({
 const pillBase =
   "rounded-2xl border-2 px-3 py-2 text-sm font-semibold transition-colors focus-ring";
 const pillIdle = "border-navy/10 bg-white text-navy hover:border-coral/50";
-const pillActive = "border-coral bg-coral text-white";
+const pillActive = "border-coral bg-coral text-navy";
 
 export function StepSchedule() {
   const { control, setValue, formState } = useFormContext<BookingFormValues>();

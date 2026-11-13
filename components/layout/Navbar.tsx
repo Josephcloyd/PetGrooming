@@ -6,6 +6,7 @@ import { motion } from "motion/react";
 import { navLinks } from "@/data/navigation";
 import { site } from "@/data/site";
 import { springSnappy } from "@/lib/animations";
+import { SITE_HEADER_TRANSITION } from "@/lib/transitions";
 import { cn } from "@/lib/utils";
 import { useScrolled } from "@/hooks/useScrolled";
 import { Button } from "@/components/ui/Button";
@@ -21,7 +22,7 @@ export function Navbar() {
 
   return (
     <>
-      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:pt-4">
+      <header className="fixed inset-x-0 top-0 z-50 px-3 pt-3 sm:pt-4" style={{ viewTransitionName: SITE_HEADER_TRANSITION }}>
         <div
           className={cn(
             "mx-auto flex max-w-5xl items-center justify-between rounded-full border border-white/70 pl-3 pr-2 transition-all duration-300 sm:pl-4",

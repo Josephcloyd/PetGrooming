@@ -5,7 +5,7 @@ import { motion, useReducedMotion } from "motion/react";
 import { easeOut } from "@/lib/animations";
 
 const PARTICLE_COUNT = 16;
-const colors = ["text-coral", "text-sunny", "text-mint", "text-sky"];
+const colors = ["text-coral", "text-sunny", "text-lagoon", "text-coral-dark"];
 
 const particles = Array.from({ length: PARTICLE_COUNT }, (_, index) => {
   const angle = (Math.PI * 2 * index) / PARTICLE_COUNT;

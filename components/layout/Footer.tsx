@@ -26,7 +26,7 @@ export function Footer() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.name}
-                    className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-coral focus-ring"
+                    className="grid h-10 w-10 place-items-center rounded-full bg-white/10 text-white transition-colors hover:bg-coral hover:text-navy focus-ring"
                   >
                     <link.icon className="h-4 w-4" aria-hidden="true" />
                   </a>

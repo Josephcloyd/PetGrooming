@@ -4,6 +4,7 @@ import { describe, expect, it } from "vitest";
 import { galleryPhotos } from "@/data/gallery";
 import { services } from "@/data/services";
 import { site } from "@/data/site";
+import { servicePrice } from "@/lib/pricing";
 import { formatPrice } from "@/lib/utils";
 import { processSteps } from "@/data/steps";
 import { team } from "@/data/team";
@@ -29,20 +30,38 @@ describe("Hero", () => {
 });
 
 describe("Services", () => {
-  it("renders a card with price, duration and booking link for every service", () => {
+  it("renders one clickable card with a starting price for every service", () => {
     render(<Services />);
 
     const items = screen.getAllByRole("listitem");
     expect(items).toHaveLength(services.length + 1);
     expect(screen.getByRole("link", { name: /start booking/i })).toHaveAttribute("href", "/booking");
     for (const service of services) {
-      const card = screen.getByRole("heading", { name: service.name }).closest("li")!;
+      const card = screen.getByRole("heading", { name: service.name }).closest("button")!;
+      expect(card).toHaveAttribute("aria-haspopup", "dialog");
       expect(within(card).getByText(formatPrice(service.startingPrice))).toBeInTheDocument();
-      expect(within(card).getByRole("link", { name: /book this/i })).toHaveAttribute(
-        "href",
-        `/booking?service=${service.id}`,
-      );
     }
+  });
+
+  it("expands a card into a detail panel with inclusions, size prices and a booking link", async () => {
+    const user = userEvent.setup();
+    render(<Services />);
+    const service = services.find((item) => item.id === "full-haircut")!;
+
+    await user.click(screen.getByRole("heading", { name: service.name }).closest("button")!);
+
+    const dialog = await screen.findByRole("dialog", { name: service.name });
+    for (const item of service.includes) {
+      expect(within(dialog).getByText(item)).toBeInTheDocument();
+    }
+    expect(within(dialog).getByText(formatPrice(servicePrice(service, "large")))).toBeInTheDocument();
+    expect(within(dialog).getByRole("link", { name: /book this service/i })).toHaveAttribute(
+      "href",
+      `/booking?service=${service.id}`,
+    );
+
+    await user.keyboard("{Escape}");
+    await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
   });
 });
 
@@ -78,6 +97,24 @@ describe("Gallery", () => {
 
     await user.keyboard("{Escape}");
     await waitFor(() => expect(screen.queryByRole("dialog")).not.toBeInTheDocument());
+  });
+
+  it("filters photos by pet type and shows each photo's caption", async () => {
+    const user = userEvent.setup();
+    render(<Gallery />);
+    const openButtons = () => screen.getAllByRole("button", { name: /^Open photo:/ });
+
+    expect(openButtons()).toHaveLength(galleryPhotos.length);
+    expect(screen.getByText(galleryPhotos[0].caption)).toBeInTheDocument();
+
+    await user.click(screen.getByRole("button", { name: "Cats" }));
+
+    const cats = galleryPhotos.filter((photo) => photo.pet === "cat");
+    await waitFor(() => expect(openButtons()).toHaveLength(cats.length));
+    expect(screen.getByRole("button", { name: "Cats" })).toHaveAttribute("aria-pressed", "true");
+
+    await user.click(screen.getByRole("button", { name: "All" }));
+    await waitFor(() => expect(openButtons()).toHaveLength(galleryPhotos.length));
   });
 });
 

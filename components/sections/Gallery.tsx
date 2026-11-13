@@ -3,7 +3,7 @@ import { AnimatedSection } from "@/components/ui/AnimatedSection";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
 import { BeforeAfterSlider } from "@/components/gallery/BeforeAfterSlider";
-import { MasonryGrid } from "@/components/gallery/MasonryGrid";
+import { GalleryGrid } from "@/components/gallery/GalleryGrid";
 
 export function Gallery() {
   const featuredPair = beforeAfterPairs[0];
@@ -18,7 +18,6 @@ export function Gallery() {
               align="left"
               eyebrow="Before & after"
               title="Drag to see the glow-up"
-              highlight="glow-up"
               description={
                 featuredPair.isSample
                   ? "Slide the handle to watch a shaggy, muddy coat turn fresh and clean."
@@ -36,14 +35,14 @@ export function Gallery() {
 
         <AnimatedSection className="mt-24">
           <SectionHeading
+            align="left"
             eyebrow="Gallery"
             title="Fresh cuts and happy faces"
-            highlight="happy faces"
-            description="Hover a photo to tilt it, click to open it full size."
+            description="Filter by dogs or cats, and tap a photo to see it full size."
           />
         </AnimatedSection>
-        <div className="mt-12">
-          <MasonryGrid photos={galleryPhotos} />
+        <div className="mt-10">
+          <GalleryGrid photos={galleryPhotos} />
         </div>
       </Container>
     </section>

@@ -71,25 +71,25 @@ export function HowItWorks() {
   const { scrollYProgress } = useScroll({ target: trackRef, offset: ["start 0.8", "end 0.45"] });
 
   return (
-    <section id="how-it-works" aria-labelledby="how-heading" className="scroll-mt-24 bg-white py-20 lg:py-28">
+    <section id="how-it-works" aria-labelledby="how-heading" className="scroll-mt-24 py-20 lg:py-28">
       <Container>
         <AnimatedSection>
           <SectionHeading
             id="how-heading"
             eyebrow="How it works"
             title="Four easy steps to a happier, fluffier friend"
-            highlight="fluffier"
             description="Scroll along and follow the paw prints."
           />
         </AnimatedSection>
 
+        <div className="mt-14 rounded-[2.5rem] bg-white px-5 py-12 shadow-soft sm:px-10">
         <motion.ol
           ref={trackRef}
           variants={staggerContainer(0.14)}
           initial={reduceMotion ? false : "hidden"}
           whileInView="visible"
           viewport={viewportOnce}
-          className="relative mt-16 grid gap-12 md:grid-cols-4 md:gap-6"
+          className="relative grid gap-12 md:grid-cols-4 md:gap-6"
         >
           <Trail
             progress={scrollYProgress}
@@ -118,7 +118,7 @@ export function HowItWorks() {
                   variants={stampIn}
                   className="relative z-10 grid h-20 w-20 shrink-0 place-items-center rounded-full bg-cream ring-8 ring-white"
                 >
-                  <span className="grid h-14 w-14 place-items-center rounded-full bg-coral text-white shadow-soft">
+                  <span className="grid h-14 w-14 place-items-center rounded-full bg-coral text-navy shadow-soft">
                     <Icon className="h-7 w-7" aria-hidden="true" />
                   </span>
                   <span className="absolute -right-1 -top-1 grid h-7 w-7 place-items-center rounded-full bg-sunny font-display text-sm font-bold text-navy">
@@ -133,6 +133,7 @@ export function HowItWorks() {
             );
           })}
         </motion.ol>
+        </div>
       </Container>
     </section>
   );

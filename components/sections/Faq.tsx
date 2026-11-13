@@ -28,7 +28,7 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
     <li
       className={cn(
         "rounded-3xl border-2 transition-colors",
-        isOpen ? "border-coral bg-white shadow-soft" : "border-navy/10 bg-white/60 hover:border-coral/40",
+        isOpen ? "border-coral bg-white shadow-soft" : "border-transparent bg-white/70 hover:border-coral/50",
       )}
     >
       <h3>
@@ -46,7 +46,7 @@ function FaqRow({ item, isOpen, onToggle }: FaqRowProps) {
             transition={reduceMotion ? { duration: 0 } : springSnappy}
             className={cn(
               "grid h-9 w-9 shrink-0 place-items-center rounded-full transition-colors",
-              isOpen ? "bg-coral text-white" : "bg-coral-light text-coral-dark",
+              isOpen ? "bg-coral text-navy" : "bg-coral-light text-coral-dark",
             )}
           >
             <Plus className="h-4 w-4" aria-hidden="true" />
@@ -78,7 +78,7 @@ export function Faq() {
   const [openId, setOpenId] = useState<string | null>(faqs[0]?.id ?? null);
 
   return (
-    <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 bg-white py-20 lg:py-28">
+    <section id="faq" aria-labelledby="faq-heading" className="scroll-mt-24 py-20 lg:py-28">
       <Container className="grid gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
         <AnimatedSection className="lg:sticky lg:top-32 lg:self-start">
           <SectionHeading
@@ -86,7 +86,6 @@ export function Faq() {
             align="left"
             eyebrow="FAQ"
             title="Questions? We have answers"
-            highlight="answers"
           />
           <div className="mt-8 rounded-3xl bg-lagoon-light p-6">
             <p className="font-display text-xl font-semibold text-navy">Still wondering about something?</p>

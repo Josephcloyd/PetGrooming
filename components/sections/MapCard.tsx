@@ -17,8 +17,8 @@ export function MapCard() {
       viewport={{ once: true, amount: 0.4 }}
     >
       <div aria-hidden="true" className="absolute inset-0 map-grid" />
-      <div aria-hidden="true" className="absolute -left-10 top-10 h-40 w-40 rounded-full bg-mint/70" />
-      <div aria-hidden="true" className="absolute -bottom-12 right-6 h-48 w-48 rounded-full bg-sky/80" />
+      <div aria-hidden="true" className="absolute -left-10 top-10 h-40 w-40 rounded-full bg-sunny-light/80" />
+      <div aria-hidden="true" className="absolute -bottom-12 right-6 h-48 w-48 rounded-full bg-lagoon-light/80" />
 
       <div className="relative mb-6 h-20 w-20">
         <span aria-hidden="true" className="absolute inset-x-4 bottom-0 h-3 rounded-full bg-navy/20 blur-[2px]" />
@@ -32,7 +32,7 @@ export function MapCard() {
           </>
         ) : null}
         <motion.span
-          className="absolute inset-x-0 bottom-2 mx-auto grid h-16 w-16 place-items-center rounded-full bg-coral text-white shadow-lift"
+          className="absolute inset-x-0 bottom-2 mx-auto grid h-16 w-16 place-items-center rounded-full bg-coral text-navy shadow-lift"
           variants={{
             hidden: { y: -120, opacity: 0 },
             visible: {

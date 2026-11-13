@@ -11,8 +11,8 @@ import {
 } from "./pricing";
 
 const catalog: Service[] = [
-  { id: "bath", name: "Bath", description: "", startingPrice: 350, durationMinutes: 45, icon: Droplets, accent: "sky" },
-  { id: "nails", name: "Nails", description: "", startingPrice: 150, durationMinutes: 15, icon: Droplets, accent: "sunny" },
+  { id: "bath", name: "Bath", description: "", startingPrice: 350, durationMinutes: 45, includes: [], icon: Droplets, accent: "lagoon" },
+  { id: "nails", name: "Nails", description: "", startingPrice: 150, durationMinutes: 15, includes: [], icon: Droplets, accent: "sunny" },
 ];
 
 describe("servicePrice", () => {

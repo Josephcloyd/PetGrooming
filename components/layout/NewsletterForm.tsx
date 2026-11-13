@@ -25,7 +25,7 @@ export function NewsletterForm() {
 
   if (isSubscribed) {
     return (
-      <p role="status" className="flex items-center gap-2 text-sm text-mint">
+      <p role="status" className="flex items-center gap-2 text-sm text-sunny">
         <Check className="h-4 w-4" aria-hidden="true" />
         You&apos;re on the list. Treats incoming.
       </p>
@@ -52,7 +52,7 @@ export function NewsletterForm() {
         />
         <button
           type="submit"
-          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-coral text-white transition-colors hover:bg-coral-dark focus-ring"
+          className="grid h-11 w-11 shrink-0 place-items-center rounded-full bg-coral text-navy transition-colors hover:bg-sunny focus-ring"
           aria-label="Subscribe"
         >
           <Send className="h-4 w-4" aria-hidden="true" />

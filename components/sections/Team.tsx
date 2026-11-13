@@ -19,7 +19,6 @@ export function Team() {
             id="team-heading"
             eyebrow="Meet the groomers"
             title="Gentle hands, serious skills"
-            highlight="serious skills"
             description="Certified, pet-first-aid trained, and genuinely obsessed with your pet."
           />
         </AnimatedSection>

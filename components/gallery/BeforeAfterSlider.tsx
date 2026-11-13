@@ -81,7 +81,7 @@ export function BeforeAfterSlider({ pair }: BeforeAfterSliderProps) {
       <span className="pointer-events-none absolute left-4 top-4 rounded-full bg-navy/80 px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
         Before
       </span>
-      <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-coral px-3 py-1 text-xs font-bold uppercase tracking-wide text-white">
+      <span className="pointer-events-none absolute right-4 top-4 rounded-full bg-coral px-3 py-1 text-xs font-bold uppercase tracking-wide text-navy">
         After
       </span>
 

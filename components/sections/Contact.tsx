@@ -39,7 +39,6 @@ export function Contact() {
             id="contact-heading"
             eyebrow="Contact & location"
             title={`Find us in ${site.address.city}`}
-            highlight={site.address.city}
             description="Pop in for a visit, give us a call, or send your questions by email."
           />
         </AnimatedSection>
@@ -65,13 +64,13 @@ export function Contact() {
                   {site.phone}
                 </a>
               </InfoTile>
-              <InfoTile icon={Mail} title="Email" tint="bg-mint">
+              <InfoTile icon={Mail} title="Email" tint="bg-lagoon-light">
                 <a href={`mailto:${site.email}`} className={linkClass}>
                   {site.email}
                 </a>
               </InfoTile>
             </address>
-            <InfoTile icon={Clock} title="Hours" tint="bg-sky">
+            <InfoTile icon={Clock} title="Hours" tint="bg-sunny-light">
               <table className="mt-1 w-full text-sm">
                 <tbody>
                   {site.hours.map((row) => (
@@ -93,7 +92,7 @@ export function Contact() {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={link.name}
-                    className="grid h-11 w-11 place-items-center rounded-full bg-white text-navy shadow-soft transition-colors hover:bg-coral hover:text-white focus-ring"
+                    className="grid h-11 w-11 place-items-center rounded-full bg-white text-navy shadow-soft transition-colors hover:bg-coral hover:text-navy focus-ring"
                   >
                     <link.icon className="h-4 w-4" />
                   </a>

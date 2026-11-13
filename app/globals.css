@@ -2,20 +2,23 @@
 
 /*
   Brand tokens. Edit these to re-theme the whole site.
-  Classes are generated automatically: bg-coral, text-navy, bg-lagoon, shadow-soft, font-display, animate-shimmer, etc.
+  Classes are generated automatically: bg-coral, text-navy, bg-lagoon, shadow-soft, font-display, animate-stamp, etc.
 */
 @theme {
   --color-cream: #fff8f0;
   --color-cream-dark: #f9ecdd;
+  /*
+    Palette: coral, navy, sunny and one water blue (lagoon).
+    - coral: fills and buttons. Pair with navy text (5.7:1), never white (2.5:1).
+    - coral-dark: coral for TEXT and small icons. 5.2:1 on white, 4.9:1 on cream.
+  */
   --color-coral: #f4846a;
-  --color-coral-dark: #e26a4e;
+  --color-coral-dark: #b8492a;
   --color-coral-light: #fde3db;
   --color-navy: #1f2a44;
   --color-navy-soft: #4a5572;
   --color-sunny: #ffd166;
   --color-sunny-light: #fff1cc;
-  --color-mint: #bee7dd;
-  --color-sky: #cfe8f6;
   --color-lagoon: #6cc4d4;
   --color-lagoon-light: #e3f5f8;
 
@@ -26,17 +29,19 @@
   --shadow-lift: 0 24px 50px -20px rgb(31 42 68 / 0.28);
 
   /* Signature CSS animations (all disabled under prefers-reduced-motion where used). */
-  --animate-spin-slow: spin 16s linear infinite;
-  --animate-shimmer: shimmer 3s ease-in-out infinite;
   --animate-foam-pop: foam-pop 0.6s cubic-bezier(0.22, 1, 0.36, 1) both;
   --animate-foam-fade: foam-fade 0.5s ease-out both;
+  --animate-stamp: stamp 0.35s cubic-bezier(0.34, 1.56, 0.64, 1) both;
 
-  @keyframes shimmer {
+  /* A paw lands like a rubber stamp when a checkbox is ticked. */
+  @keyframes stamp {
     from {
-      background-position: 200% 0;
+      transform: scale(1.8) rotate(-20deg);
+      opacity: 0;
     }
     to {
-      background-position: -200% 0;
+      transform: scale(1) rotate(0deg);
+      opacity: 1;
     }
   }
 
@@ -67,17 +72,12 @@
 }
 
 @utility focus-ring {
-  @apply outline-none focus-visible:ring-2 focus-visible:ring-coral focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
+  @apply outline-none focus-visible:ring-2 focus-visible:ring-coral-dark focus-visible:ring-offset-2 focus-visible:ring-offset-cream;
 }
 
 @utility paw-pattern {
   background-image: radial-gradient(circle at 1px 1px, rgb(31 42 68 / 0.06) 1px, transparent 0);
   background-size: 28px 28px;
-}
-
-@utility shimmer-bg {
-  background-image: linear-gradient(110deg, transparent 35%, rgb(255 255 255 / 0.6) 50%, transparent 65%);
-  background-size: 200% 100%;
 }
 
 @utility map-grid {
@@ -129,6 +129,45 @@ h4 {
 ::selection {
   background: var(--color-sunny);
   color: var(--color-navy);
+}
+
+/*
+  Page transitions (React <ViewTransition>):
+  - the hero "Book a Grooming" button morphs into the booking form card (.morph)
+  - the floating navbar stays put while the page underneath crossfades
+*/
+::view-transition {
+  pointer-events: none;
+}
+::view-transition-group(.morph) {
+  animation-duration: 450ms;
+  animation-timing-function: cubic-bezier(0.22, 1, 0.36, 1);
+}
+::view-transition-image-pair(.morph) {
+  animation-name: via-blur;
+}
+@keyframes via-blur {
+  30% {
+    filter: blur(4px);
+  }
+}
+::view-transition-group(site-header) {
+  animation: none;
+  z-index: 100;
+}
+::view-transition-old(site-header) {
+  display: none;
+}
+::view-transition-new(site-header) {
+  animation: none;
+}
+@media (prefers-reduced-motion: reduce) {
+  ::view-transition-old(*),
+  ::view-transition-new(*),
+  ::view-transition-group(*) {
+    animation-duration: 0s !important;
+    animation-delay: 0s !important;
+  }
 }
 
 .skip-link {

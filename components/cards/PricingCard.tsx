@@ -26,18 +26,14 @@ export function PricingCard({ pkg, size }: PricingCardProps) {
       transition={springSoft}
       className={cn(
         "relative flex h-full flex-col rounded-[2rem] p-8 shadow-soft transition-shadow hover:shadow-lift",
-        isPopular ? "bg-navy text-white lg:-my-5 lg:py-12" : "bg-white text-navy",
+        isPopular ? "bg-navy text-white ring-2 ring-coral ring-offset-4 ring-offset-cream lg:-my-5 lg:py-12" : "bg-white text-navy",
       )}
       data-testid={`pricing-card-${pkg.id}`}
     >
       {isPopular ? (
         <>
-          <span aria-hidden="true" className="pointer-events-none absolute inset-0 overflow-hidden rounded-[2rem]">
-            <span className="absolute -right-10 -top-10 h-40 w-40 rounded-full bg-coral/25 blur-2xl" />
-          </span>
           <Badge tone="coral" className="absolute -top-3 left-1/2 -translate-x-1/2 overflow-hidden">
-            <span aria-hidden="true" className="absolute inset-0 animate-shimmer shimmer-bg motion-reduce:hidden" />
-            <span className="relative">Most popular</span>
+            Most popular
           </Badge>
         </>
       ) : null}

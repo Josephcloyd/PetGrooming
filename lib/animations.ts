@@ -66,7 +66,8 @@ export const stampIn: Variants = {
 };
 
 export const cardHover = { y: -8, scale: 1.02 };
-export const tapScale = { scale: 0.95 };
+/** Soft squish when a button is pressed. */
+export const tapScale = { scaleX: 1.05, scaleY: 0.9 };
 
 /** Direction-aware horizontal slide (booking steps, carousel). */
 export const slideHorizontal: Variants = {

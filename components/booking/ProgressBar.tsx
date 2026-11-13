@@ -36,7 +36,7 @@ export function ProgressBar({ steps, current }: ProgressBarProps) {
         </div>
         <motion.span
           aria-hidden="true"
-          className="absolute top-1/2 grid h-8 w-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-coral text-white shadow-soft"
+          className="absolute top-1/2 grid h-8 w-8 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-coral text-navy shadow-soft"
           initial={false}
           animate={{ left: `${percent}%` }}
           transition={transition}

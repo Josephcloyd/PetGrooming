@@ -50,7 +50,7 @@ export function FloatingShapes({ shapes = defaultShapes, className }: FloatingSh
           transition={{ duration: shape.duration, delay: shape.delay, repeat: Infinity, ease: "easeInOut" }}
         >
           {shape.kind === "bubble" ? (
-            <span className="block h-full w-full rounded-full border border-white/70 bg-gradient-to-br from-sky/70 to-white/30 shadow-inner" />
+            <span className="block h-full w-full rounded-full border border-white/70 bg-gradient-to-br from-lagoon-light to-white/30 shadow-inner" />
           ) : (
             <PawPrint className="h-full w-full text-coral/30" strokeWidth={1.5} />
           )}

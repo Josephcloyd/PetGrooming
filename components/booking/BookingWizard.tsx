@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, useState, type KeyboardEvent } from "react";
+import { useEffect, useRef, useState, ViewTransition, type KeyboardEvent } from "react";
 import { useSearchParams } from "next/navigation";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { ArrowLeft, ArrowRight, LoaderCircle } from "lucide-react";
@@ -11,6 +11,7 @@ import { slideHorizontal } from "@/lib/animations";
 import { bookingDefaults, bookingSchema, stepFields, type BookingFormValues } from "@/lib/booking/schema";
 import { submitBooking, type BookingAdapter } from "@/lib/booking/submit";
 import { bookingQuote, type BookingQuote } from "@/lib/pricing";
+import { BOOKING_CARD_TRANSITION } from "@/lib/transitions";
 import { Button } from "@/components/ui/Button";
 import { PriceSummary } from "./PriceSummary";
 import { ProgressBar } from "./ProgressBar";
@@ -65,9 +66,9 @@ export function BookingWizard({ adapter }: BookingWizardProps) {
     }
   }, [preselectedService, setValue]);
 
-  const [size, serviceIds, location, petName] = useWatch({
+  const [size, serviceIds, location, petName, petType] = useWatch({
     control,
-    name: ["size", "serviceIds", "location", "petName"],
+    name: ["size", "serviceIds", "location", "petName", "petType"],
   });
   const quote = bookingQuote({ serviceIds, size, homeService: location === "home", catalog: services });
 
@@ -135,6 +136,7 @@ export function BookingWizard({ adapter }: BookingWizardProps) {
   return (
     <FormProvider {...methods}>
       <div ref={topRef} className="scroll-mt-28 grid gap-8 lg:grid-cols-[1fr_20rem] lg:items-start">
+        <ViewTransition name={BOOKING_CARD_TRANSITION} share="morph" default="none">
         <form onSubmit={handleSubmit(onSubmit)} onKeyDown={handleKeyDown} noValidate className="rounded-3xl bg-cream-dark/60 p-5 sm:p-8">
           <ProgressBar steps={STEPS.map((item) => item.label)} current={step} />
 
@@ -160,7 +162,7 @@ export function BookingWizard({ adapter }: BookingWizardProps) {
           </div>
 
           {submitError ? (
-            <p role="alert" className="mt-6 rounded-2xl bg-coral-light px-4 py-3 text-sm font-medium text-coral-dark">
+            <p role="alert" className="mt-6 rounded-2xl border-2 border-coral bg-coral-light px-4 py-3 text-sm font-medium text-navy">
               {submitError}. Please try again or call us.
             </p>
           ) : null}
@@ -183,9 +185,10 @@ export function BookingWizard({ adapter }: BookingWizardProps) {
             )}
           </div>
         </form>
+        </ViewTransition>
 
         <div className="lg:sticky lg:top-28">
-          <PriceSummary quote={quote} size={size} petName={petName || undefined} />
+          <PriceSummary quote={quote} size={size} petType={petType} petName={petName || undefined} />
         </div>
       </div>
     </FormProvider>

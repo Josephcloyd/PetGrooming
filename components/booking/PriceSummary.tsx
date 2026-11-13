@@ -2,25 +2,32 @@
 
 import { Clock } from "lucide-react";
 import type { BookingQuote } from "@/lib/pricing";
-import type { PetSize } from "@/data/types";
+import type { PetSize, PetType } from "@/data/types";
 import { formatDuration, formatPrice } from "@/lib/utils";
 import { RollingPrice } from "@/components/ui/RollingPrice";
+import { PetBuddy } from "./PetBuddy";
 
 interface PriceSummaryProps {
   quote: BookingQuote;
   size: PetSize;
+  petType: PetType;
   petName?: string;
 }
 
-export function PriceSummary({ quote, size, petName }: PriceSummaryProps) {
+export function PriceSummary({ quote, size, petType, petName }: PriceSummaryProps) {
   const hasLines = quote.lines.length > 0;
 
   return (
     <aside aria-labelledby="summary-heading" className="rounded-3xl bg-navy p-6 text-white shadow-lift">
-      <h2 id="summary-heading" className="font-display text-lg font-semibold">
-        {petName ? `${petName}'s visit` : "Your visit"}
-      </h2>
-      <p className="mt-0.5 text-xs uppercase tracking-wide text-white/60">{size} pet pricing</p>
+      <div className="flex items-center gap-3">
+        <PetBuddy petType={petType} size={size} />
+        <div>
+          <h2 id="summary-heading" className="font-display text-lg font-semibold">
+            {petName ? `${petName}'s visit` : "Your visit"}
+          </h2>
+          <p className="mt-0.5 text-xs uppercase tracking-wide text-white/60">{size} pet pricing</p>
+        </div>
+      </div>
 
       <div aria-live="polite" aria-atomic="true">
         {hasLines ? (

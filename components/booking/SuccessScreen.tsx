@@ -1,6 +1,6 @@
 "use client";
 
-import { CircleCheck } from "lucide-react";
+import { Check } from "lucide-react";
 import { motion, useReducedMotion } from "motion/react";
 import type { BookingFormValues } from "@/lib/booking/schema";
 import { formatLongDate } from "@/lib/booking/schedule";
@@ -9,12 +9,61 @@ import { fadeUp, scaleIn, staggerContainer } from "@/lib/animations";
 import { formatPrice } from "@/lib/utils";
 import { Button } from "@/components/ui/Button";
 import { PawBurst } from "./PawBurst";
+import { PetBuddy } from "./PetBuddy";
+
+const BATH_BUBBLES = [
+  { left: "18%", size: 12, delay: 0.3 },
+  { left: "38%", size: 18, delay: 0.6 },
+  { left: "60%", size: 10, delay: 0.45 },
+  { left: "78%", size: 15, delay: 0.8 },
+];
+const BUBBLE_ROUNDS = 3;
 
 interface SuccessScreenProps {
   bookingId: string;
   values: BookingFormValues;
   quote: BookingQuote;
   onBookAnother: () => void;
+}
+
+/** The booked pet gets a celebratory little bath. */
+function BathTime({ values }: { values: BookingFormValues }) {
+  const reduceMotion = useReducedMotion();
+
+  return (
+    <div className="relative mx-auto mb-6 h-28 w-28">
+      <PawBurst />
+      <motion.div variants={scaleIn} className="relative h-28 w-28 overflow-hidden rounded-full bg-lagoon-light">
+        <PetBuddy
+          petType={values.petType}
+          size="large"
+          className="absolute inset-x-0 top-3 mx-auto h-20 w-20 bg-transparent"
+          iconClassName="h-12 w-12"
+        />
+        <span aria-hidden="true" className="absolute inset-x-0 bottom-0 h-9 rounded-b-full bg-lagoon/60" />
+        {!reduceMotion
+          ? BATH_BUBBLES.map((bubble) => (
+              <motion.span
+                key={bubble.left}
+                aria-hidden="true"
+                className="absolute bottom-3 rounded-full border border-white bg-white/70"
+                style={{ left: bubble.left, width: bubble.size, height: bubble.size }}
+                initial={{ y: 0, opacity: 0 }}
+                animate={{ y: -80, opacity: [0, 1, 0] }}
+                transition={{ duration: 1.6, delay: bubble.delay, repeat: BUBBLE_ROUNDS - 1, ease: "easeOut" }}
+              />
+            ))
+          : null}
+      </motion.div>
+      <motion.span
+        variants={scaleIn}
+        custom={0.5}
+        className="absolute -bottom-1 -right-1 grid h-9 w-9 place-items-center rounded-full bg-coral text-navy shadow-soft ring-4 ring-white"
+      >
+        <Check className="h-5 w-5" strokeWidth={3} aria-hidden="true" />
+      </motion.span>
+    </div>
+  );
 }
 
 export function SuccessScreen({ bookingId, values, quote, onBookAnother }: SuccessScreenProps) {
@@ -29,15 +78,7 @@ export function SuccessScreen({ bookingId, values, quote, onBookAnother }: Succe
       role="status"
       aria-live="polite"
     >
-      <div className="relative mx-auto mb-6 h-24 w-24">
-        <PawBurst />
-        <motion.span
-          variants={scaleIn}
-          className="relative grid h-24 w-24 place-items-center rounded-full bg-mint text-navy"
-        >
-          <CircleCheck className="h-12 w-12" aria-hidden="true" />
-        </motion.span>
-      </div>
+      <BathTime values={values} />
 
       <motion.h2 variants={fadeUp} className="text-3xl font-semibold text-navy sm:text-4xl">
         {values.petName} is booked in!

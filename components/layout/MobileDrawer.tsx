@@ -10,7 +10,6 @@ import { easeOut } from "@/lib/animations";
 import { useFocusTrap } from "@/hooks/useFocusTrap";
 import { useLockBodyScroll } from "@/hooks/useLockBodyScroll";
 import { Button } from "@/components/ui/Button";
-import { FloatingShapes } from "@/components/decor/FloatingShapes";
 
 interface MobileDrawerProps {
   isOpen: boolean;
@@ -44,12 +43,11 @@ export function MobileDrawer({ isOpen, onClose }: MobileDrawerProps) {
           {...reveal}
           transition={{ duration: 0.55, ease: easeOut }}
         >
-          <FloatingShapes className="opacity-40" />
           <div className="relative flex justify-end px-5 pt-5">
             <button
               type="button"
               onClick={onClose}
-              className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white hover:bg-coral focus-ring"
+              className="grid h-11 w-11 place-items-center rounded-full bg-white/10 text-white hover:bg-coral hover:text-navy focus-ring"
               aria-label="Close menu"
             >
               <X className="h-5 w-5" aria-hidden="true" />

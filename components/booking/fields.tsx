@@ -1,6 +1,7 @@
 "use client";
 
 import type { ComponentType, ReactNode } from "react";
+import { PawPrint } from "lucide-react";
 import { useFormContext, type FieldError as RHFError, type RegisterOptions } from "react-hook-form";
 import { cn } from "@/lib/utils";
 import type { BookingField, BookingFormValues } from "@/lib/booking/schema";
@@ -108,7 +109,7 @@ export function ChoiceGroup({ name, label, options, type = "radio", columns = 3 
           return (
             <label key={option.value} htmlFor={id} className="relative block cursor-pointer">
               <input id={id} type={type} value={option.value} className="peer sr-only" {...register(name)} />
-              <span className="flex h-full items-center gap-3 rounded-2xl border-2 border-navy/10 bg-white p-4 transition-all peer-checked:border-coral peer-checked:bg-coral-light/40 peer-focus-visible:ring-2 peer-focus-visible:ring-coral peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-cream hover:border-coral/50">
+              <span className="flex h-full items-center gap-3 rounded-2xl border-2 border-navy/10 bg-white p-4 transition-all peer-checked:border-coral peer-checked:bg-coral-light/40 peer-focus-visible:ring-2 peer-focus-visible:ring-coral-dark peer-focus-visible:ring-offset-2 peer-focus-visible:ring-offset-cream hover:border-coral/50 peer-checked:[&_[data-stamp-ring]]:border-coral peer-checked:[&_[data-stamp-ring]]:bg-white peer-checked:[&_[data-stamp]]:animate-stamp peer-checked:[&_[data-stamp]]:opacity-100 motion-reduce:peer-checked:[&_[data-stamp]]:animate-none">
                 {Icon ? (
                   <span className="grid h-10 w-10 shrink-0 place-items-center rounded-xl bg-cream text-coral-dark">
                     <Icon className="h-5 w-5" aria-hidden />
@@ -119,6 +120,15 @@ export function ChoiceGroup({ name, label, options, type = "radio", columns = 3 
                   {option.hint ? <span className="block text-xs text-navy-soft">{option.hint}</span> : null}
                 </span>
                 {option.trailing}
+                {type === "checkbox" ? (
+                  <span
+                    data-stamp-ring
+                    aria-hidden="true"
+                    className="grid h-7 w-7 shrink-0 place-items-center rounded-full border-2 border-navy/15 transition-colors"
+                  >
+                    <PawPrint data-stamp className="h-4 w-4 fill-current text-coral-dark opacity-0" strokeWidth={0} />
+                  </span>
+                ) : null}
               </span>
             </label>
           );

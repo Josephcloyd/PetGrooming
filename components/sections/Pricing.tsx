@@ -65,7 +65,7 @@ export function Pricing() {
                   onClick={() => setSize(option.value)}
                   className={cn(
                     "relative z-10 rounded-full px-5 py-2 text-sm font-semibold transition-colors focus-ring sm:px-7",
-                    isActive ? "text-white" : "text-navy-soft hover:text-navy",
+                    isActive ? "text-navy" : "text-navy-soft hover:text-navy",
                   )}
                 >
                   {isActive ? (
@@ -76,7 +76,7 @@ export function Pricing() {
                     />
                   ) : null}
                   <span className="block">{option.label}</span>
-                  <span className={cn("block text-[11px] font-normal", isActive ? "text-white/80" : "text-navy-soft/70")}>
+                  <span className={cn("block text-[11px] font-normal", isActive ? "text-navy/75" : "text-navy-soft/70")}>
                     {option.hint}
                   </span>
                 </button>

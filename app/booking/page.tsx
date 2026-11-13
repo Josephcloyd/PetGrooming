@@ -3,7 +3,6 @@ import { Suspense } from "react";
 import { site } from "@/data/site";
 import { Container } from "@/components/ui/Container";
 import { SectionHeading } from "@/components/ui/SectionHeading";
-import { FloatingShapes } from "@/components/decor/FloatingShapes";
 import { BookingWizard } from "@/components/booking/BookingWizard";
 
 export const metadata: Metadata = {
@@ -15,7 +14,6 @@ export const metadata: Metadata = {
 export default function BookingPage() {
   return (
     <section aria-labelledby="booking-heading" className="relative overflow-hidden pt-32 pb-20 sm:pt-36 lg:pb-28">
-      <FloatingShapes className="opacity-60" />
       <Container className="relative">
         <SectionHeading
           id="booking-heading"

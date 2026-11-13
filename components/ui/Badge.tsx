@@ -3,14 +3,14 @@ import { cn } from "@/lib/utils";
 
 interface BadgeProps {
   children: ReactNode;
-  tone?: "sunny" | "coral" | "mint" | "navy";
+  tone?: "sunny" | "coral" | "lagoon" | "navy";
   className?: string;
 }
 
 const tones = {
   sunny: "bg-sunny text-navy",
-  coral: "bg-coral text-white",
-  mint: "bg-mint text-navy",
+  coral: "bg-coral text-navy",
+  lagoon: "bg-lagoon-light text-navy",
   navy: "bg-navy text-white",
 };
 

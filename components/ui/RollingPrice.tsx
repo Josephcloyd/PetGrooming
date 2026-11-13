@@ -27,6 +27,13 @@ export function RollingPrice({ value, className }: RollingPriceProps) {
         {chars.map((char, index) => {
           /* Key from the right so "₱999" -> "₱1,299" keeps the units reel stable. */
           const position = chars.length - index;
+          if (char === "₱") {
+            return (
+              <span key={`sym-${position}`} className="mr-[0.08em] inline-block self-start pt-[0.3em] text-[0.5em] font-medium opacity-80">
+                {char}
+              </span>
+            );
+          }
           if (!/\d/.test(char)) {
             return (
               <span key={`sym-${position}`} className={cn("inline-block", ROW_HEIGHT)}>
